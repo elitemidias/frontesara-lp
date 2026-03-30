@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imersão Empresarial FronteSara · 25 de Abril · Barra da Tijuca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:        #C9A84C;
+      --gold-light:  #E2C47A;
+      --gold-dim:    rgba(201,168,76,0.15);
+      --gold-border: rgba(201,168,76,0.25);
+      --bg:          #080808;
+      --bg-2:        #111111;
+      --bg-3:        #1A1A1A;
+      --text:        #F5F0E8;
+      --text-muted:  #9A8E78;
+      --white:       #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ─── SHIMMER TOP ─── */
+    .top-bar {
+      height: 3px;
+      background: linear-gradient(90deg, #5A3D0A, var(--gold), var(--gold-light), var(--gold), #5A3D0A);
+      background-size: 600px 3px;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position: 600px 0; }
+    }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 3px;
+      left: 0; right: 0;
+      z-index: 100;
+      padding: 10px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--gold-border);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+    .nav-logo img {
+      height: 72px;
+      filter: drop-shadow(0 0 16px rgba(201,168,76,0.6)) brightness(1.15);
+    }
+    .nav-cta {
+      background: var(--gold);
+      color: #080808;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      padding: 10px 22px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--gold-light); }
+    @media (max-width: 600px) {
+      nav { padding: 12px 20px; }
+      .nav-cta { font-size: 12px; padding: 8px 16px; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 24px 80px;
+      position: relative;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        var(--bg);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero h1 em {
+      color: var(--gold);
+      font-style: italic;
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+      line-height: 1.7;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .hero-info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .hero-info-item span.icon {
+      color: var(--gold);
+      font-size: 16px;
+    }
+    .hero-info-item strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ─── COUNTDOWN ─── */
+    .countdown {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .cd-block {
+      background: var(--bg-3);
+      border: 1px solid var(--gold-border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      text-align: center;
+      min-width: 72px;
+    }
+    .cd-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+    .cd-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: block;
+    }
+    @media (max-width: 480px) {
+      .cd-block { padding: 12px 14px; min-width: 60px; }
+      .cd-number { font-size: 28px; }
+    }
+
+    .hero-cta {
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: #080808;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 18px 40px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 0 30px rgba(201,168,76,0.25);
+      animation: pulse 2.5s infinite;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(201,168,76,0.4);
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(201,168,76,0.25); }
+      50%       { box-shadow: 0 0 50px rgba(201,168,76,0.45); }
+    }
+    .btn-primary svg { width: 22px; height: 22px; fill: #080808; }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 16px;
+      letter-spacing: 0.5px;
+      animation: fadeUp 0.8s 0.6s ease both;
+    }
+
+    /* ─── SEÇÃO BASE ─── */
+    section {
+      padding: 90px 24px;
+    }
+    .container {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-title em { color: var(--gold); font-style: italic; }
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 20px 0 40px;
+    }
+
+    /* ─── SOCIAL PROOF (fotos evento) ─── */
+    .proof-section {
+      background: var(--bg-2);
+      border-top: 1px solid var(--gold-border);
+      border-bottom: 1px solid var(--gold-border);
+      padding: 60px 24px;
+      overflow: hidden;
+    }
+    .proof-label {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .proof-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 6px;
+      filter: grayscale(20%) brightness(0.85);
+      transition: all 0.4s;
+    }
+    .proof-grid img:hover {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.02);
+    }
+    .proof-grid img:first-child {
+      grid-column: span 2;
+      height: 300px;
+    }
+    @media (max-width: 768px) {
+      .proof-grid { grid-template-columns: repeat(2, 1fr); }
+      .proof-grid img:first-child { grid-column: span 2; height: 220px; }
+    }
+    @media (max-width: 480px) {
+      .proof-grid { grid-template-columns: 1fr; }
+      .proof-grid img:first-child { grid-column: span 1; }
+    }
+
+    /* ─── PARA QUEM É ─── */
+    .audience-section { background: var(--bg); }
+    .audience-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    @media (max-width: 768px) { .audience-grid { grid-template-columns: 1fr; } }
+
+    .audience-card {
+      background: var(--bg-3);
+      border-radius: 10px;
+      padding: 36px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .audience-card.yes { border-top: 3px solid var(--gold); }
+    .audience-card.no  { border-top: 3px solid rgba(255,80,80,0.5); }
+
+    .audience-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .audience-card.yes h3 { color: var(--gold); }
+    .audience-card.no  h3 { color: rgba(255,100,100,0.9); }
+
+    .audience-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .audience-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .audience-list li .check {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      margin-top: 1px;
+    }
+    .audience-card.yes .check { background: rgba(201,168,76,0.15); color: var(--gold); }
+    .audience-card.no  .check { background: rgba(255,80,80,0.12); color: rgba(255,100,100,0.9); }
+
+    /* ─── O QUE VOCÊ VAI APRENDER ─── */
+    .learn-section { background: var(--bg-2); }
+    .learn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    @media (max-width: 900px) { .learn-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .learn-grid { grid-template-columns: 1fr; } }
+
+    .learn-card {
+      background: var(--bg-3);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      padding: 32px 28px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .learn-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,168,76,0.5);
+    }
+    .learn-icon {
+      font-size: 32px;
+      margin-bottom: 18px;
+      display: block;
+      line-height: 1;
+    }
+    .learn-icon svg {
+      display: block;
+    }
+    .learn-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .learn-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── PALESTRANTES ─── */
+    .speakers-section { background: var(--bg); }
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+    @media (max-width: 768px) { .speakers-grid { grid-template-columns: 1fr; } }
+
+    .speaker-card {
+      background: var(--bg-3);
+      border: 1px solid var(--gold-border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .speaker-img-wrap {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+      background: #111;
+    }
+    .speaker-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      transition: transform 0.5s;
+    }
+    .speaker-img-wrap img.foto-braian {
+      object-fit: cover;
+      object-position: center 10%;
+      background: #0E0E0E;
+    }
+    .speaker-card:hover .speaker-img-wrap img { transform: scale(1.04); }
+    .speaker-img-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--bg-3), transparent);
+    }
+    .speaker-time {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(8,8,8,0.8);
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .speaker-body { padding: 28px 32px 32px; }
+    .speaker-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .speaker-title {
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .speaker-talk {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .speaker-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .speaker-bullets li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--text-muted); line-height: 1.5;
+    }
+    .speaker-bullets li::before {
+      content: '→';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .speaker-quote {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: var(--gold-dim);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── CRONOGRAMA ─── */
+    .schedule-section { background: var(--bg-2); }
+    .schedule-timeline {
+      max-width: 680px;
+      margin: 48px auto 0;
+      position: relative;
+    }
+    .schedule-timeline::before {
+      content: '';
+      position: absolute;
+      left: 56px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
+    }
+    .schedule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .schedule-time {
+      width: 56px;
+      text-align: right;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      padding-top: 14px;
+      flex-shrink: 0;
+    }
+    .schedule-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--bg-2);
+      border: 2px solid var(--gold);
+      flex-shrink: 0;
+      margin-top: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .schedule-dot.highlight {
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(201,168,76,0.5);
+    }
+    .schedule-content {
+      flex: 1;
+      background: var(--bg-3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin-bottom: 10px;
+      transition: border-color 0.3s;
+    }
+    .schedule-content:hover { border-color: var(--gold-border); }
+    .schedule-content.featured {
+      border-color: var(--gold-border);
+      background: linear-gradient(135deg, var(--bg-3), rgba(201,168,76,0.05));
+    }
+    .schedule-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .schedule-content p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .schedule-content .speaker-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    /* ─── INFOS PRÁTICAS ─── */
+    .info-section { background: var(--bg); }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    @media (max-width: 900px) { .info-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-card {
+      background: var(--bg-3);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .info-card .info-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+    .info-card .info-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .info-card .info-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .info-card .info-value.gold { color: var(--gold); }
+
+    /* ─── MAPA ─── */
+    .map-section { background: var(--bg-2); padding: 60px 24px; }
+    .map-wrap {
+      max-width: 1060px;
+      margin: 32px auto 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--gold-border);
+      height: 380px;
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; }
+
+    /* ─── CTA FINAL ─── */
+    .cta-section {
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%), var(--bg);
+      text-align: center;
+      padding: 100px 24px;
+      border-top: 1px solid var(--gold-border);
+    }
+    .cta-section .section-title { margin: 0 auto 16px; }
+    .cta-section .section-sub { margin: 0 auto 40px; }
+    .cta-divider { width: 48px; height: 2px; background: var(--gold); margin: 20px auto 40px; }
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--gold);
+      color: #080808;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 22px 52px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 0 40px rgba(201,168,76,0.3);
+      animation: pulse 2.5s infinite;
+    }
+    .btn-whatsapp:hover {
+      background: var(--gold-light);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 50px rgba(201,168,76,0.5);
+    }
+    .btn-whatsapp svg { width: 26px; height: 26px; fill: #080808; }
+    .cta-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-section { background: var(--bg-2); }
+    .faq-list { max-width: 720px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--bg-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .faq-item.open { border-color: var(--gold-border); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: left;
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .faq-question:hover { color: var(--gold); }
+    .faq-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+      font-size: 16px;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 24px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 24px 20px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--gold-border);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    footer img { height: 100px; margin-bottom: 20px; opacity: 1; filter: drop-shadow(0 0 20px rgba(201,168,76,0.5)) brightness(1.1); }
+    footer p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    footer .footer-gold { color: var(--gold); }
+
+    /* ─── STICKY MOBILE CTA ─── */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(8,8,8,0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--gold-border);
+      padding: 12px 20px 16px;
+      z-index: 999;
+    }
+    @media (max-width: 768px) { .sticky-cta { display: block; } }
+    .sticky-cta a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--gold);
+      color: #080808;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 15px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .sticky-cta a svg { width: 20px; height: 20px; fill: #080808; }
+
+  </style>
+</head>
+<body>
+
+  <div class="top-bar"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="assets/lp/Fe no front logo transparente.png" alt="Fé no Front">
+    </div>
+    <a href="https://chat.whatsapp.com/GWbGosYZwrh9hWRB7zzKiQ" target="_blank" class="nav-cta">
+      Garantir Minha Vaga
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      ✦ Imersão Empresarial Presencial · Rio de Janeiro ✦
+    </div>
+    <h1>
+      Você trabalha muito.<br>
+      <em>O número deveria ser maior.</em>
+    </h1>
+    <p class="hero-sub">
+      Uma imersão gratuita para empresários que querem estrutura, escala e propósito — com fé no centro de tudo.
+    </p>
+    <div class="hero-info">
+      <div class="hero-info-item"><span class="icon">📅</span><strong>25 de Abril de 2026</strong></div>
+      <div class="hero-info-item"><span class="icon">🕗</span><strong>08:30 às 14:00</strong></div>
+      <div class="hero-info-item"><span class="icon">📍</span><strong>Barra da Tijuca · RJ</strong></div>
+      <div class="hero-info-item"><span class="icon">🎟</span><strong>Gratuito</strong></div>
+    </div>
+    <div class="countdown">
+      <div class="cd-block"><span class="cd-number" id="cd-days">00</span><span class="cd-label">Dias</span></div>
+      <div class="cd-block"><span class="cd-number" id="cd-hours">00</span><span class="cd-label">Horas</span></div>
+      <div class="cd-block"><span class="cd-number" id="cd-mins">00</span><span class="cd-label">Min</span></div>
+      <div class="cd-block"><span class="cd-number" id="cd-secs">00</span><span class="cd-label">Seg</span></div>
+    </div>
+    <div class="hero-cta">
+      <a href="https://chat.whatsapp.com/GWbGosYZwrh9hWRB7zzKiQ" target="_blank" class="btn-primary">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.546 5.879L.057 23.985l6.304-1.654A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.371l-.36-.213-3.733.979 1.01-3.65-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
+        Entrar no Grupo e Garantir Minha Vaga
+      </a>
+    </div>
+    <p class="hero-note">
+      <span style="color:var(--gold);font-weight:700;">⚠ Vagas limitadas</span> · Evento 100% presencial e gratuito · Barra da Tijuca · RJ
+    </p>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <div class="proof-section reveal">
+    <p class="proof-label">Veja como foram nossos eventos anteriores</p>
+    <div class="proof-grid">
+      <img src="assets/lp/evento-plateia-2.jpeg" alt="Evento anterior">
+      <img src="assets/lp/evento-3pessoas-edited.jpeg" alt="Evento anterior">
+      <img src="assets/lp/evento-plateia-1.jpeg" alt="Evento anterior">
+      <img src="assets/lp/evento-plateia-3.jpeg" alt="Evento anterior">
+      <img src="assets/lp/evento-plateia-4.jpeg" alt="Evento anterior">
+    </div>
+  </div>
+
+  <!-- PARA QUEM É -->
+  <section class="audience-section">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">Qualificação</span>
+        <h2 class="section-title">Este evento é <em>para você?</em></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="audience-grid">
+        <div class="audience-card yes reveal reveal-delay-1">
+          <h3>✦ Para quem é</h3>
+          <ul class="audience-list">
+            <li><span class="check">✓</span>Empresário que trabalha muito mas o resultado não aparece no fim do mês</li>
+            <li><span class="check">✓</span>Empreendedor que quer estruturar seu modelo de negócio de verdade</li>
+            <li><span class="check">✓</span>Líder que busca crescimento profissional com propósito e valores</li>
+            <li><span class="check">✓</span>Quem quer sair do caos operacional e ter previsibilidade de receita</li>
+            <li><span class="check">✓</span>Quem acredita que fé e negócio caminham juntos, não separados</li>
+          </ul>
+        </div>
+        <div class="audience-card no reveal reveal-delay-2">
+          <h3>✗ Não é para quem</h3>
+          <ul class="audience-list">
+            <li><span class="check">✗</span>Busca emprego ou está começando do absoluto zero</li>
+            <li><span class="check">✗</span>Quer apenas um evento religioso sem foco em resultado prático</li>
+            <li><span class="check">✗</span>Não está disposto a implementar o que vai aprender</li>
+            <li><span class="check">✗</span>Prefere excuses a estrutura e responsabilidade</li>
+            <li><span class="check">✗</span>Busca fórmulas mágicas sem comprometimento real</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE VOCÊ VAI APRENDER -->
+  <section class="learn-section">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">Conteúdo</span>
+        <h2 class="section-title">O que você vai <em>aprender</em></h2>
+        <div class="divider"></div>
+        <p class="section-sub">Conteúdo prático, direto ao ponto. Sem enrolação. Você sai com um plano para colocar em prática na segunda-feira.</p>
+      </div>
+      <div class="learn-grid">
+        <div class="learn-card reveal reveal-delay-1">
+          <span class="learn-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h8"/></svg>
+          </span>
+          <h4>Produto de Verdade</h4>
+          <p>Descubra a diferença entre o que você vende e o que o cliente realmente compra — e como isso muda tudo no seu negócio.</p>
+        </div>
+        <div class="learn-card reveal reveal-delay-2">
+          <span class="learn-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </span>
+          <h4>Esteira de Produtos</h4>
+          <p>Os 4 níveis que todo negócio escalável tem: Entrada → Acesso → Principal → Premium. Onde estão os seus buracos?</p>
+        </div>
+        <div class="learn-card reveal reveal-delay-3">
+          <span class="learn-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </span>
+          <h4>Receita Recorrente</h4>
+          <p>Venda avulsa cansa. Aprenda as 3 formas de criar previsibilidade: assinatura, comunidade e acompanhamento contínuo.</p>
+        </div>
+        <div class="learn-card reveal reveal-delay-1">
+          <span class="learn-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </span>
+          <h4>Posicionamento Magnético</h4>
+          <p>Como ser reconhecido como referência no seu mercado e atrair clientes que já chegam prontos para comprar.</p>
+        </div>
+        <div class="learn-card reveal reveal-delay-2">
+          <span class="learn-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </span>
+          <h4>Marketing que Vende</h4>
+          <p>Estratégias práticas de marketing digital aplicadas à sua realidade — sem jargões, sem teoria vazia.</p>
+        </div>
+        <div class="learn-card reveal reveal-delay-3">
+          <span class="learn-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </span>
+          <h4>Fé como Fundação</h4>
+          <p>Como integrar propósito e valores cristãos no core do negócio — não como ornamento, mas como estrutura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALESTRANTES -->
+  <section class="speakers-section">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">Quem vai falar</span>
+        <h2 class="section-title">Os <em>palestrantes</em></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="speakers-grid">
+
+        <!-- FERNANDO -->
+        <div class="speaker-card reveal reveal-delay-1">
+          <div class="speaker-img-wrap">
+            <img src="assets/lp/Nando.png" alt="Fernando">
+            <div class="speaker-img-overlay"></div>
+            <span class="speaker-time">11:00 – 12:30</span>
+          </div>
+          <div class="speaker-body">
+            <div class="speaker-name">Fernando</div>
+            <div class="speaker-title">Especialista em Marketing & Vendas</div>
+            <div class="speaker-talk">"Como Posicionar, Comunicar e Vender com Autoridade no Mercado Digital"</div>
+            <ul class="speaker-bullets">
+              <li>Posicionamento estratégico que atrai o cliente certo</li>
+              <li>Marketing de conteúdo que gera autoridade e confiança</li>
+              <li>Estrutura de vendas que fecha sem precisar forçar</li>
+              <li>Como integrar fé e integridade na comunicação da marca</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BRAIAN -->
+        <div class="speaker-card reveal reveal-delay-2">
+          <div class="speaker-img-wrap">
+            <img src="assets/lp/Braian-darkbg.png" alt="Braian" class="foto-braian">
+            <div class="speaker-img-overlay"></div>
+            <span class="speaker-time">09:00 – 10:30</span>
+          </div>
+          <div class="speaker-body">
+            <div class="speaker-name">Braian</div>
+            <div class="speaker-title">Especialista em Produto & Modelo de Negócio</div>
+            <div class="speaker-talk">"Produto Certo, Modelo Certo — Como Construir um Negócio que Escala"</div>
+            <ul class="speaker-bullets">
+              <li>O que é produto de verdade (não é o que você vende)</li>
+              <li>A esteira de 4 níveis que todo negócio escalável tem</li>
+              <li>Exercício ao vivo: mapeie seus buracos e crie soluções</li>
+              <li>Recorrência: como ter receita previsível todo mês</li>
+            </ul>
+            <div class="speaker-quote">
+              "Você tem fé. Você tem trabalho. O que faltava era estrutura."
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CRONOGRAMA -->
+  <section class="schedule-section">
+    <div class="container">
+      <div class="reveal" style="text-align: center;">
+        <span class="section-tag">Programação</span>
+        <h2 class="section-title">Cronograma do <em>dia</em></h2>
+        <div class="divider" style="margin: 20px auto 0;"></div>
+      </div>
+      <div class="schedule-timeline reveal">
+        <div class="schedule-item">
+          <div class="schedule-time">08:30</div>
+          <div class="schedule-dot"></div>
+          <div class="schedule-content">
+            <h4>☕ Credenciamento e Boas-vindas</h4>
+            <p>Recepção, coffee de boas-vindas e networking inicial</p>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">09:00</div>
+          <div class="schedule-dot highlight"></div>
+          <div class="schedule-content featured">
+            <span class="speaker-tag">Braian · Palestra 1</span>
+            <h4>Produto Certo, Modelo Certo</h4>
+            <p>Esteira de produtos, modelo de negócio e exercício ao vivo para identificar seus buracos</p>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">10:30</div>
+          <div class="schedule-dot"></div>
+          <div class="schedule-content">
+            <h4>☕ Coffee Break</h4>
+            <p>Pausa, networking e troca entre os participantes</p>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">11:00</div>
+          <div class="schedule-dot highlight"></div>
+          <div class="schedule-content featured">
+            <span class="speaker-tag">Fernando · Palestra 2</span>
+            <h4>Posicionamento, Marketing e Vendas</h4>
+            <p>Como posicionar sua marca, comunicar com autoridade e vender com integridade</p>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">12:30</div>
+          <div class="schedule-dot"></div>
+          <div class="schedule-content">
+            <h4>🎤 Painel Q&A — Fernando + Braian</h4>
+            <p>Perguntas abertas, casos reais e respostas diretas dos dois palestrantes</p>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">13:00</div>
+          <div class="schedule-dot"></div>
+          <div class="schedule-content">
+            <h4>🤝 Networking + Sorteio</h4>
+            <p>Conexões, troca de contatos e sorteio especial para os presentes</p>
+          </div>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-time">14:00</div>
+          <div class="schedule-dot"></div>
+          <div class="schedule-content">
+            <h4>🙏 Encerramento</h4>
+            <p>Palavra final e próximos passos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS PRÁTICAS -->
+  <section class="info-section">
+    <div class="container">
+      <div class="reveal" style="text-align: center;">
+        <span class="section-tag">Informações Práticas</span>
+        <h2 class="section-title">Tudo que você <em>precisa saber</em></h2>
+        <div class="divider" style="margin: 20px auto 0;"></div>
+      </div>
+      <div class="info-grid">
+        <div class="info-card reveal reveal-delay-1">
+          <span class="info-icon">📅</span>
+          <div class="info-label">Data</div>
+          <div class="info-value">25 de Abril<br>de 2026</div>
+        </div>
+        <div class="info-card reveal reveal-delay-2">
+          <span class="info-icon">🕗</span>
+          <div class="info-label">Horário</div>
+          <div class="info-value">08:30 às 14:00<br><small style="font-size:12px;color:var(--text-muted)">Abertura às 08:30</small></div>
+        </div>
+        <div class="info-card reveal reveal-delay-3">
+          <span class="info-icon">📍</span>
+          <div class="info-label">Local</div>
+          <div class="info-value" style="font-size:14px;">R. Alceu Amoroso Lima, 65<br>Loja B · Barra da Tijuca · RJ</div>
+        </div>
+        <div class="info-card reveal reveal-delay-4">
+          <span class="info-icon">🎟</span>
+          <div class="info-label">Investimento</div>
+          <div class="info-value gold">100% Gratuito<br><small style="font-size:12px;color:var(--text-muted)">Vagas limitadas</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPA -->
+  <div class="map-section">
+    <div style="max-width:1060px;margin:0 auto;">
+      <div class="reveal">
+        <span class="section-tag">Localização</span>
+        <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin-top:8px;color:var(--text);">
+          R. Alceu Amoroso Lima, 65 — Loja B · <em style="color:var(--gold)">Barra da Tijuca</em>
+        </h3>
+      </div>
+      <div class="map-wrap reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.156!2d-43.3229!3d-22.9951!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zUi4gQWxjZXUgQW1vcm9zbyBMaW1hLCA2NSAtIEJhcnJhIGRhIFRpanVjYQ!5e0!3m2!1spt-BR!2sbr!4v1"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização do evento">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA FINAL -->
+  <section class="cta-section">
+    <div class="reveal">
+      <span class="section-tag">Garanta sua vaga</span>
+      <h2 class="section-title" style="text-align:center;">
+        Pronto para construir um negócio<br><em>que realmente escala?</em>
+      </h2>
+      <div class="cta-divider"></div>
+      <p class="section-sub" style="text-align:center;margin:0 auto 40px;">
+        Clique abaixo, entre no grupo exclusivo do WhatsApp e confirme sua presença. Vagas limitadas — o evento é gratuito mas as transformações são reais.
+      </p>
+      <a href="https://chat.whatsapp.com/GWbGosYZwrh9hWRB7zzKiQ" target="_blank" class="btn-whatsapp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.546 5.879L.057 23.985l6.304-1.654A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.371l-.36-.213-3.733.979 1.01-3.65-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
+        Entrar no Grupo e Garantir Minha Vaga
+      </a>
+      <p class="cta-note">25 de Abril · Barra da Tijuca · 100% Gratuito · Vagas Limitadas</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="reveal" style="text-align:center;">
+        <span class="section-tag">Dúvidas frequentes</span>
+        <h2 class="section-title">Perguntas <em>frequentes</em></h2>
+        <div class="divider" style="margin: 20px auto 0;"></div>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-question">
+            O evento é realmente gratuito?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Sim, 100% gratuito. Basta entrar no grupo do WhatsApp e confirmar sua presença. Não há nenhum custo, taxa de inscrição ou produto a ser comprado no dia.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Preciso ter experiência em negócios para participar?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Não é necessário conhecimento avançado. O evento é voltado para empresários e empreendedores que já têm um negócio em andamento e querem estruturá-lo melhor. Se você está começando do zero, recomendamos aguardar edições futuras mais introdutórias.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            O evento é religioso? Preciso ser cristão para participar?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">O evento traz a perspectiva de integrar fé e negócio, mas o conteúdo é 100% prático e aplicável por qualquer pessoa. Não é um culto, é uma imersão empresarial. Todos são bem-vindos.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Terei acesso ao material depois do evento?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Os participantes do grupo do WhatsApp recebem conteúdos exclusivos antes e depois do evento. Fique no grupo para acompanhar tudo que será compartilhado.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Como chego ao local do evento?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">O evento acontece na R. Alceu Amoroso Lima, 65 - Loja B, Barra da Tijuca, Rio de Janeiro. Há estacionamento próximo e o local é de fácil acesso. O endereço completo e instruções serão enviados no grupo do WhatsApp.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Haverá alimentação no evento?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Sim! Está previsto coffee break às 10:30. O evento termina às 14:00, então recomendamos almoçar após o encerramento.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="assets/lp/Fe no front logo transparente.png" alt="Fé no Front">
+    <p>
+      <span class="footer-gold">Fé no Front</span> · Imersão Empresarial FronteSara<br>
+      25 de Abril de 2026 · Barra da Tijuca · Rio de Janeiro<br><br>
+      <span style="font-size:12px;">Onde fé, negócio e propósito se encontram.</span>
+    </p>
+  </footer>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta">
+    <a href="https://chat.whatsapp.com/GWbGosYZwrh9hWRB7zzKiQ" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.143.564 4.148 1.546 5.879L.057 23.985l6.304-1.654A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.371l-.36-.213-3.733.979 1.01-3.65-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
+      Garantir Minha Vaga — Gratuito
+    </a>
+  </div>
+
+  <script>
+    // ── COUNTDOWN ──
+    function updateCountdown() {
+      const target = new Date('2026-04-25T08:30:00');
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent = '00';
+        document.getElementById('cd-secs').textContent = '00';
+        return;
+      }
+      const days  = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const mins  = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const secs  = Math.floor((diff % (1000*60)) / 1000);
+      document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+      document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+      document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── FAQ ──
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
